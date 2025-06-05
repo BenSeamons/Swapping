@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <title>Clerkship Trade App</title>
+</head>
+<body>
+    <h1>Clerkship Trade Registration</h1>
+    {% if message %}
+    <p><strong>{{ message }}</strong></p>
+    {% endif %}
+    <form method="POST">
+    <label>Name:<br><input name="name" required></label><br><br>
+    <label>Phone:<br><input name="phone" required></label><br><br>
+    <label>Specialty:<br><input name="specialty" required></label><br><br>
+    <label>Block (e.g. 3-4):<br><input name="block" required></label><br><br>
+    <label>Location:<br><input name="location" required></label><br><br>
+    <label>Trade Status:<br>
+        <select name="trade_status" required>
+            <option value="willing">Willing to Trade</option>
+            <option value="wanting">Wanting to Trade</option>
+            <option value="open">Open to Contact</option>
+            <option value="no_trade">Absolutely No Trade</option>
+        </select>
+    </label><br><br>
+    <button type="submit">Submit</button>
+</form>
+
+
+    <h2>Current Matches:</h2>
+    {% if matches %}
+        <ul>
+        {% for m in matches %}
+            <li>
+                {{ m.student_1 }} ↔ {{ m.student_2 }} at {{ m.location }} during {{ m.time }}<br>
+                Contacts: {{ m.student_1 }} ({{ m.student_1_contact }}), {{ m.student_2 }} ({{ m.student_2_contact }})
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matches found yet.</p>
+    {% endif %}
+
+    <hr>
+    <a href="{{ url_for('upload') }}">Upload Spreadsheet</a>
+
+
+    <hr>
+    <a href="{{ url_for('search') }}">Search for Students with Desired Rotation</a>
+</body>
+</html>

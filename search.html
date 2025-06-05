@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>Search Clerkship Rotations</title>
+</head>
+<body>
+    <h1>Search for Students with Desired Rotation</h1>
+    <form method="POST">
+    <label>Desired Specialty:<br><input name="desired_specialty" value="{{ specialty }}" required></label><br><br>
+    <label>Desired Block:<br><input name="desired_block" value="{{ block }}" required></label><br><br>
+    <button type="submit">Search</button>
+</form>
+
+    {% if results %}
+        <h2>Results for {{ location }} during {{ time }}:</h2>
+        <ul>
+        {% for c in results %}
+            <li>
+                <strong>{{ c.id }}</strong> — {{ c.priority }} — Contact: {{ c.contact_info }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% elif location and time %}
+        <p>No students found for that rotation/time.</p>
+    {% endif %}
+
+    <hr>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
